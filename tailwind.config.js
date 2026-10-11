@@ -1,0 +1,47 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        primary: "#e9c178",
+        "on-primary": "#412d00",
+        "primary-container": "#c6a15b",
+        "on-primary-container": "#4f3800",
+        secondary: "#e1c294",
+        "on-secondary": "#402d0b",
+        "secondary-container": "#5b4622",
+        "on-secondary-container": "#d2b487",
+        tertiary: "#cac6bd",
+        "on-tertiary": "#32302a",
+        "tertiary-container": "#aaa69d",
+        surface: "#131313",
+        "surface-dim": "#131313",
+        "surface-bright": "#393939",
+        "surface-container-lowest": "#0e0e0e",
+        "surface-container-low": "#1c1b1b",
+        "surface-container": "#201f1f",
+        "surface-container-high": "#2a2a2a",
+        "surface-container-highest": "#353534",
+        "on-surface": "#e5e2e1",
+        "on-surface-variant": "#d1c5b4",
+        outline: "#9a8f80",
+        "outline-variant": "#4e4639",
+        background: "#131313",
+        "on-background": "#e5e2e1",
+        error: "#ffb4ab",
+        "error-container": "#93000a",
+      },
+      fontFamily: {
+        serif: ["'Playfair Display'", "serif"],
+        sans: ["'Hanken Grotesk'", "sans-serif"],
+        reading: ["'Newsreader'", "serif"],
+      },
+    },
+  },
+  plugins: [],
+}
