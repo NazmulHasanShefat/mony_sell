@@ -11,6 +11,7 @@ import {
   FiTerminal,
 } from "react-icons/fi";
 import { motion } from "framer-motion";
+import { authClient } from "../lib/auth-client";
 
 export default function AuthPage() {
   const [activeTab, setActiveTab] = useState("signin");
@@ -20,7 +21,7 @@ export default function AuthPage() {
   const [submittedMessage, setSubmittedMessage] = useState("");
 
   // Handle form submission using Object.fromEntries
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
@@ -28,7 +29,18 @@ export default function AuthPage() {
     // Include checkbox state explicitly if needed since checkboxes might be omitted if unchecked
     data.rememberDevice = rememberDevice;
 
-    console.log(`${activeTab.toUpperCase()} FORM SUBMISSION DATA:`, data);
+    if (activeTab === "register" && data.password === data.confirmPassword) {
+      console.log(`${activeTab.toUpperCase()} FORM SUBMISSION DATA:`, data);
+      console.log("Password and Confirm Password match.");
+
+      const mydata = await authClient.signUp.email({
+        name: data.fullName,
+        email: data.email,
+        password: data.password,
+      });
+
+      console.log("Sign Up Response:", mydata);
+    }
 
     setSubmittedMessage(
       `${activeTab === "signin" ? "Sign In" : "Registration"} successful! Data logged to console.`,
