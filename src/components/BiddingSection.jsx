@@ -7,7 +7,7 @@ export default function BiddingSection({
   coinImage,
   highestBid,
   bidsList,
-  onPlaceBid,
+  
 }) {
   const minValidBid = highestBid + 100;
   const [customBid, setCustomBid] = useState(null);
@@ -55,13 +55,7 @@ export default function BiddingSection({
       ? bidderName.trim().slice(0, 1).toUpperCase() + '***' + bidderName.trim().slice(-1).toUpperCase() + ' (You)'
       : 'Y***u (You)';
 
-    onPlaceBid({
-      amount: numericBid,
-      collector: maskedName,
-      contact: contactNumber,
-      time: 'Just now',
-      status: 'Accepted (Highest)',
-    });
+  
 
     setToastMessage(`Congratulations! Your bid of ৳ ${numericBid.toLocaleString()} has been placed as the highest offer.`);
     setCustomBid(numericBid + 100);

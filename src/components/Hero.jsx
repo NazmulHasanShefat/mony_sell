@@ -13,7 +13,7 @@ export default function Hero({ coinImage, onOpenLightbox }) {
       : 'One Quarter Anna India 1942 — Reverse Inscription View (Wartime Stamped Die)';
 
   return (
-    <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12 pb-14 sm:pb-20 scroll-mt-20" id="hero">
+    <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 sm:pt-8 sm:pt-12 pb-14 sm:pb-20 scroll-mt-20" id="hero">
       {/* Ambient spotlight backdrop */}
       <div className="absolute top-1/4 right-1/4 -translate-y-1/2 w-[300px] sm:w-[450px] lg:w-[550px] h-[300px] sm:h-[450px] lg:h-[550px] bg-primary/10 rounded-full blur-[100px] sm:blur-[140px] pointer-events-none -z-10" />
       <div className="absolute -top-12 left-4 sm:left-10 w-[250px] sm:w-[350px] lg:w-[420px] h-[250px] sm:h-[350px] lg:h-[420px] bg-primary/5 rounded-full blur-[90px] sm:blur-[120px] pointer-events-none -z-10" />
@@ -110,7 +110,7 @@ export default function Hero({ coinImage, onOpenLightbox }) {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7, delay: 0.15, ease: 'easeOut' }}
-          className="lg:col-span-5 relative flex items-center justify-center mt-6 lg:mt-0"
+          className="lg:col-span-5 row-start-1 sm:row-auto relative flex items-center justify-center sm:mt-6 lg:mt-0"
         >
           {/* Multi-tier Pedestal Card */}
           <div className="relative w-full max-w-[340px] sm:max-w-[420px] lg:max-w-[480px] aspect-square rounded-2xl bg-gradient-to-b from-surface-container-high/90 to-surface-container-lowest border border-outline-variant/40 p-4 sm:p-6 lg:p-7 flex flex-col items-center justify-between shadow-[0_24px_64px_rgba(0,0,0,0.85)] group">
