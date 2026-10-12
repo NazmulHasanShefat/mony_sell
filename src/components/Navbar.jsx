@@ -79,7 +79,7 @@ export default function Navbar() {
         {/* Desktop Right CTAs */}
         <div className="hidden sm:flex items-center gap-4 lg:gap-6">
           <NavLink
-            to="/section/make-your-offer"
+            to="/signin"
             end
             onClick={handleLinkClick}
             className="text-xs uppercase tracking-[0.14em] text-on-surface-variant hover:text-primary transition-colors font-medium hidden md:inline-block"

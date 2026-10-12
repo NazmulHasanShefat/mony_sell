@@ -160,10 +160,8 @@ export default function Hero({ coinImage, onOpenLightbox }) {
               >
                 <img
                   alt="One Quarter Anna India 1942 vintage wartime holed coin"
-                  className={`w-full h-full object-contain rounded-full drop-shadow-[0_20px_40px_rgba(0,0,0,0.95)] filter contrast-105 brightness-95 ${
-                    face === 'reverse' ? 'rotate-180' : ''
-                  }`}
-                  src={coinImage}
+                  className={`w-full h-full object-contain rounded-full drop-shadow-[0_20px_40px_rgba(0,0,0,0.95)] filter contrast-105 brightness-95 `}
+                  src={face === 'obverse' ? "/coin-back.png" : "/coin-front.png"}
                   loading="eager"
                 />
               </motion.div>
