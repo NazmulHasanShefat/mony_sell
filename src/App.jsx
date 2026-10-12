@@ -14,7 +14,7 @@ import LightboxModal from './components/LightboxModal';
 import './App.css';
 
 const COIN_IMAGE =
-  '/public/coin-front.png';
+  '/coin-front.png';
 
 export default function App() {
   const [highestBid, setHighestBid] = useState(50000);
