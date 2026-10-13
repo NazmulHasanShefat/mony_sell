@@ -1,10 +1,18 @@
 import React from "react";
+import { authClient } from "../../lib/auth-client";
 
 export default function GoogleAuthButton() {
-  const handleGoogleSignIn = () => {
-    // Add your Google authentication logic here
-    alert("Google authentication simulated.");
+  const handleGoogleSignIn = async () => {
+    try {
+      await authClient.signIn.social({
+        provider: "google", // or any other provider id
+        callbackURL: "http://localhost:5173",
+      });
+    } catch (error) {
+      console.error("Error during Google sign-in:", error);
+    }
   };
+
 
   return (
     <div className="w-full max-w-[440px] mx-auto mt-6">

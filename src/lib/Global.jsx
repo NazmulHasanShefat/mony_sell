@@ -1,0 +1,1 @@
+export const placeholderImage = "https://img.magnific.com/premium-photo/picture-image-symbol-blue-background_172429-2022.jpg?w=1060";

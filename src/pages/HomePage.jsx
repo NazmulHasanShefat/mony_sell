@@ -100,7 +100,6 @@ const HomePage = () => {
   return (
     <main className="w-full flex-grow overflow-x-hidden">
       {/* 2. Hero Section */}
-      <User />
       <Hero coinImage={COIN_IMAGE} onOpenLightbox={handleOpenLightbox} />
 
       {/* 3. Auction Status Strip */}

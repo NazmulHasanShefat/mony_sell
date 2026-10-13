@@ -1,12 +1,18 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { MdAccountBalance, MdMenu, MdClose } from 'react-icons/md';
+import { MdAccountBalance, MdMenu, MdClose, MdPerson } from 'react-icons/md';
 import { FaGavel } from 'react-icons/fa6';
 import { Link, NavLink, useLocation } from 'react-router';
+import { authClient } from '../lib/auth-client';
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const {
+    data: session,
+    isPending,
+    error,
+  } = authClient.useSession();
 
   const navLinks = [
     { name: 'Home', to: '/' },
@@ -38,6 +44,16 @@ export default function Navbar() {
     setMobileMenuOpen(false);
   };
 
+  const handleSignOut = async () => {
+    await authClient.signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          window.location.href = '/signin';
+        },
+      },
+    });
+  };
+
   const getNavLinkClassName = (baseClassName, inactiveTextClassName) => ({ isActive }) =>
     `${baseClassName} ${isActive ? 'text-primary' : inactiveTextClassName}`;
 
@@ -49,7 +65,7 @@ export default function Navbar() {
           <span className="w-10 h-10 rounded-full border border-primary/40 bg-surface-container flex items-center justify-center text-primary group-hover:border-primary transition-colors shrink-0">
             <MdAccountBalance className="text-[22px]" />
           </span>
-          <div className="sm:flex flex-col hidden ">
+          <div className="sm:flex flex-col hidden">
             <span className="font-serif text-lg sm:text-xl tracking-[0.2em] text-primary uppercase font-medium leading-none">
               HERITAGE AUCTIONS
             </span>
@@ -78,33 +94,70 @@ export default function Navbar() {
 
         {/* Desktop Right CTAs */}
         <div className="hidden sm:flex items-center gap-4 lg:gap-6">
-          <NavLink
-            to="/signin"
-            end
-            onClick={handleLinkClick}
-            className="text-xs uppercase tracking-[0.14em] text-on-surface-variant hover:text-primary transition-colors font-medium hidden md:inline-block"
-          >
-            Sign In
-          </NavLink>
-          <Link
-            to="/product"
-            className="inline-flex items-center gap-2 h-11 px-5 lg:px-6 bg-primary hover:bg-[#d8af65] text-on-primary font-semibold text-xs uppercase tracking-[0.15em] rounded transition-all shadow-[0_4px_16px_rgba(233,193,120,0.2)] hover:shadow-[0_6px_24px_rgba(233,193,120,0.35)] active:scale-[0.98]"
-          >
-            <FaGavel className="text-[14px]" />
-            <span>Place a Bid</span>
-          </Link>
+          {!isPending && (
+            <>
+              {session ? (
+                <>
+                  <Link
+                    to="/profile"
+                    className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.14em] text-on-surface-variant hover:text-primary transition-colors font-medium"
+                  >
+                    <MdPerson className="text-base" />
+                    <span>Profile</span>
+                  </Link>
+                  <button
+                    onClick={handleSignOut}
+                    className="inline-flex items-center h-11 px-5 border border-primary/40 hover:border-primary text-primary font-semibold text-xs uppercase tracking-[0.15em] rounded transition-all"
+                  >
+                    Sign Out
+                  </button>
+                </>
+              ) : (
+                <>
+                  <NavLink
+                    to="/signin"
+                    end
+                    onClick={handleLinkClick}
+                    className="text-xs uppercase tracking-[0.14em] text-on-surface-variant hover:text-primary transition-colors font-medium hidden md:inline-block"
+                  >
+                    Sign In
+                  </NavLink>
+                  <Link
+                    to="/signup"
+                    className="inline-flex items-center gap-2 h-11 px-5 lg:px-6 bg-primary hover:bg-[#d8af65] text-on-primary font-semibold text-xs uppercase tracking-[0.15em] rounded transition-all shadow-[0_4px_16px_rgba(233,193,120,0.2)] hover:shadow-[0_6px_24px_rgba(233,193,120,0.35)] active:scale-[0.98]"
+                  >
+                    <FaGavel className="text-[14px]" />
+                    <span>Sign up</span>
+                  </Link>
+                </>
+              )}
+            </>
+          )}
         </div>
 
-        {/* Mobile / Tablet Hamburger Toggle */}
+        {/* Mobile / Tablet Controls */}
         <div className="flex items-center gap-2 lg:hidden">
-          <NavLink
-            to="/section/make-your-offer"
-            end
-            className="sm:hidden inline-flex items-center justify-center w-10 h-10 bg-primary text-on-primary rounded"
-            title="Place a Bid"
-          >
-            <FaGavel className="text-base" />
-          </NavLink>
+          {!isPending && (
+            <>
+              {session ? (
+                <Link
+                  to="/profile"
+                  className="sm:hidden flex items-center justify-center w-10 h-10 rounded-lg bg-surface-container border border-outline-variant/40 text-primary hover:border-primary transition-colors shrink-0"
+                  title="Profile"
+                >
+                  <MdPerson className="text-xl" />
+                </Link>
+              ) : (
+                <Link
+                  to="/signup"
+                  className="sm:hidden inline-flex items-center h-10 px-3 bg-primary text-on-primary text-xs font-semibold uppercase tracking-[0.1em] rounded shrink-0"
+                >
+                  Sign Up
+                </Link>
+              )}
+            </>
+          )}
+
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="w-10 h-10 rounded-lg bg-surface-container border border-outline-variant/40 flex items-center justify-center text-on-surface hover:text-primary hover:border-primary transition-colors"
@@ -150,6 +203,49 @@ export default function Navbar() {
                   <FaGavel className="text-[15px]" />
                   <span>Place a Bid (৳ 1,600)</span>
                 </NavLink>
+
+                {!isPending && (
+                  <>
+                    {session ? (
+                      <>
+                        <Link
+                          to="/profile"
+                          onClick={handleLinkClick}
+                          className="w-full h-11 inline-flex items-center justify-center gap-2 border border-outline-variant/40 text-on-surface font-semibold text-xs uppercase tracking-[0.16em] rounded"
+                        >
+                          <MdPerson className="text-base" />
+                          <span>Profile</span>
+                        </Link>
+                        <button
+                          onClick={() => {
+                            handleLinkClick();
+                            handleSignOut();
+                          }}
+                          className="w-full h-11 inline-flex items-center justify-center bg-primary/20 hover:bg-primary/30 text-primary font-semibold text-xs uppercase tracking-[0.16em] rounded transition-colors"
+                        >
+                          Sign Out
+                        </button>
+                      </>
+                    ) : (
+                      <div className="flex gap-3 pt-2">
+                        <Link
+                          to="/signin"
+                          onClick={handleLinkClick}
+                          className="flex-1 h-11 inline-flex items-center justify-center border border-outline-variant/40 text-on-surface font-semibold text-xs uppercase tracking-[0.16em] rounded"
+                        >
+                          Sign In
+                        </Link>
+                        <Link
+                          to="/signup"
+                          onClick={handleLinkClick}
+                          className="flex-1 h-11 inline-flex items-center justify-center bg-primary text-on-primary font-semibold text-xs uppercase tracking-[0.16em] rounded"
+                        >
+                          Sign Up
+                        </Link>
+                      </div>
+                    )}
+                  </>
+                )}
               </div>
             </nav>
           </motion.div>

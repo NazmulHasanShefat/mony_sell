@@ -8,6 +8,8 @@ import {
   FiKey,
 } from "react-icons/fi";
 import { Link } from "react-router";
+import { authClient } from "../../lib/auth-client";
+import { placeholderImage } from "../../lib/Global";
 
 const dossier = [
   ["Numismatic Society", "ANA Fellow #8492-HK"],
@@ -16,7 +18,11 @@ const dossier = [
   ["Attestation Authority", "Royal Numismatic Seal 1978"],
 ];
 
+
+
 export default function CollectorProfileHeader() {
+const { data: session, isPending, error } = authClient.useSession();
+console.log("User session data:", session);
   return (
     <div className="w-full max-w-6xl mx-auto px-2 sm:px-6">
       {/* Top Breadcrumb & Status Bar */}
@@ -57,9 +63,10 @@ export default function CollectorProfileHeader() {
             <div className="relative shrink-0">
               <div className="h-20 w-20 sm:h-28 sm:w-28 rounded-full bg-gradient-to-br from-[#d4af37] via-[#404040] to-[#171717] p-1 shadow-xl">
                 <img
-                  alt="Arthur Sterling-Vane portrait"
+                 alt={session?.user?.name || "User portrait"}
                   className="h-full w-full rounded-full object-cover contrast-105"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDoj5TFDART4jrR5IsMfJICEKNxCMT7K2n6xcuVsDMuWqzqm9cnyB2NWqkX78CtcKBAE9lHDfSUqgsnGbo2mnWPQW-esKMlOuZOZ-hxP9De83qorMY9u8n8Ur6aAu4UOw7bVSZkldcPTia2t-FNl-hEkmtPmWanN9k4aTIwfkYznnmyPz9-rqsb3y9Wdp9O6qBck5q2In8AxP_ZBs63EHDqdSJtjz0VuZJmDErgu_77u0nT2yA7CdmStw"
+             src={session?.user?.image || placeholderImage}
+             referrerPolicy="no-referrer"
                 />
               </div>
               <span
@@ -76,7 +83,7 @@ export default function CollectorProfileHeader() {
                 Tier I Sovereign Patron
               </span>
               <h1 className="text-lg sm:text-2xl font-bold tracking-tight text-[#f5f5f5]">
-                Arthur Sterling-Vane, <span className="text-[#d4af37]">FRNS</span>
+                {session?.user?.name || "Anonymous"} <span className="text-[#d4af37]">FRNS</span>
               </h1>
               <p className="mt-1 text-[11px] sm:text-xs text-[#a3a3a3] leading-relaxed">
                 Accredited Senior Numismatist &amp; Private Collector
@@ -86,7 +93,7 @@ export default function CollectorProfileHeader() {
                 <span className="inline-flex items-center gap-1 max-w-full truncate">
                   <FiShield className="w-3 h-3 text-[#d4af37] shrink-0" />
                   <span className="truncate font-mono">
-                    a.sterling-vane@heritage-archive.org
+                    {session?.user?.email || "No email available"}
                   </span>
                 </span>
                 <span className="inline-flex items-center gap-1 rounded bg-emerald-500/10 border border-emerald-500/20 px-1.5 py-0.5 uppercase tracking-wider text-emerald-400 font-medium shrink-0">
