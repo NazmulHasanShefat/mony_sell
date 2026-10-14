@@ -165,7 +165,7 @@ export default function Hero({ coinImage, onOpenLightbox }) {
                     : "text-on-surface-variant hover:text-on-surface"
                 }`}
               >
-                Reverse View
+                Back view
               </button>
             </div>
 
