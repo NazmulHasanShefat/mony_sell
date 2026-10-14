@@ -2,11 +2,12 @@ import React from "react";
 import { authClient } from "../../lib/auth-client";
 
 export default function GoogleAuthButton() {
+  const baseURL = import.meta.env.VITE_AUTH_BASE_URL
   const handleGoogleSignIn = async () => {
     try {
       await authClient.signIn.social({
         provider: "google", // or any other provider id
-        callbackURL: "http://localhost:5173",
+        callbackURL: baseURL,
       });
     } catch (error) {
       console.error("Error during Google sign-in:", error);
