@@ -103,7 +103,7 @@ export default function Hero({ coinImage, onOpenLightbox }) {
               href="#coin-specs"
               className="inline-flex items-center justify-center gap-2 h-12 sm:h-13 px-5 sm:px-7 border border-outline hover:border-primary text-on-surface hover:text-primary font-medium text-xs sm:text-sm uppercase tracking-[0.16em] rounded-lg bg-surface-container-low hover:bg-surface-container transition-all"
             >
-              <span>Explore Coin Details</span>
+              <span>Explore for more Details</span>
               <HiArrowDown className="text-[16px] sm:text-[18px]" />
             </a>
           </div>
