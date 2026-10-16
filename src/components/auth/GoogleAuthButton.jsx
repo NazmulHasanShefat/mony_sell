@@ -2,12 +2,11 @@ import React from "react";
 import { authClient } from "../../lib/auth-client";
 
 export default function GoogleAuthButton() {
-  const clientURL = import.meta.env.VITE_CLIENT_URL
   const handleGoogleSignIn = async () => {
     try {
       await authClient.signIn.social({
         provider: "google", // or any other provider id
-        callbackURL: clientURL,
+        callbackURL: "https://coinkini.netlify.app",
       });
     } catch (error) {
       console.error("Error during Google sign-in:", error);
