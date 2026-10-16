@@ -13,7 +13,7 @@ export default function GoogleAuthButton() {
     }
   };
 
-  console.log("Client URL:", clientURL); // Log the client URL to verify it's being read correctly
+
 
   return (
     <div className="w-full max-w-[440px] mx-auto mt-6">
