@@ -7,7 +7,8 @@ export default function GoogleAuthButton() {
     try {
       await authClient.signIn.social({
         provider: "google", // or any other provider id
-        callbackURL: clientURL // The URL to redirect to after successful sign-in,
+        callbackURL: clientURL, // The URL to redirect to after successful sign-in,
+          errorCallbackURL: `${clientURL}/login`,
       });
     } catch (error) {
       console.error("Error during Google sign-in:", error);
