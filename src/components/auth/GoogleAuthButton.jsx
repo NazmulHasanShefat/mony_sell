@@ -2,16 +2,18 @@ import React from "react";
 import { authClient } from "../../lib/auth-client";
 
 export default function GoogleAuthButton() {
+  const clientURL = import.meta.env.VITE_CLIENT_URL || "http://localhost:5173"; // Default to localhost if not set
   const handleGoogleSignIn = async () => {
     try {
       await authClient.signIn.social({
         provider: "google", // or any other provider id
-        callbackURL: "https://coinkini.netlify.app",
+        callbackURL: clientURL // The URL to redirect to after successful sign-in,
       });
     } catch (error) {
       console.error("Error during Google sign-in:", error);
     }
   };
+  console.log("Client URL for Google Sign-In: from vite login", clientURL); // Log the client URL to verify it's being read correctly
 
 
 
