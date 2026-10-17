@@ -8,3 +8,7 @@
   from = "/*"
   to = "/index.html"
   status = 200
+
+  [build]
+  command = "sed -i 's|BACKEND_URL_PLACEHOLDER|dummy|g' netlify.toml && npm run build"
+  publish = "dist"
