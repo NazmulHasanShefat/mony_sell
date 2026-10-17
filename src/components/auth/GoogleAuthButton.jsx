@@ -8,15 +8,13 @@ export default function GoogleAuthButton() {
       await authClient.signIn.social({
         provider: "google", // or any other provider id
         callbackURL: clientURL, // The URL to redirect to after successful sign-in,
-          errorCallbackURL: `${clientURL}/login`,
+        errorCallbackURL: `${clientURL}/signin`,
       });
     } catch (error) {
       console.error("Error during Google sign-in:", error);
     }
   };
   console.log("Client URL for Google Sign-In: from vite login", clientURL); // Log the client URL to verify it's being read correctly
-
-
 
   return (
     <div className="w-full max-w-[440px] mx-auto mt-6">
